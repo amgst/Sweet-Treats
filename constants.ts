@@ -20,7 +20,7 @@ export const SERVICES: Service[] = [
     shortDescription: 'Premium Italian gelato served from our vintage carts.',
     fullDescription: 'Our signature service! We bring the joy of authentic Italian gelato to your event. Includes a uniformed server, premium waffle cones, cups, and your choice of 6 flavors from our menu of over 30 options. Dairy-free sorbet options available.',
     priceStart: 350,
-    image: 'https://picsum.photos/800/600?random=1',
+    image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&h=600&fit=crop&q=80',
     features: ['2 Hours Service', 'Unlimited Servings', '6 Flavors', 'Uniformed Staff'],
     icon: IceCream
   },
@@ -31,7 +31,7 @@ export const SERVICES: Service[] = [
     shortDescription: 'Bespoke cakes for weddings, birthdays, and anniversaries.',
     fullDescription: 'From towering wedding tiers to fun character birthday cakes, our pastry chefs create edible masterpieces. We offer gluten-free, vegan, and nut-free options upon request.',
     priceStart: 80,
-    image: 'https://picsum.photos/800/600?random=2',
+    image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=600&fit=crop&q=80',
     features: ['Custom Design Consultation', 'Premium Ingredients', 'Delivery Included'],
     icon: Cake
   },
@@ -42,7 +42,7 @@ export const SERVICES: Service[] = [
     shortDescription: 'A nostalgic touch for large outdoor events.',
     fullDescription: 'Our fully restored vintage truck serves soft serve, popsicles, and slushies. Perfect for festivals, corporate fun days, and large weddings.',
     priceStart: 500,
-    image: 'https://picsum.photos/800/600?random=3',
+    image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&h=600&fit=crop&q=80',
     features: ['3 Hours Service', 'Music System', 'Full Menu Available'],
     icon: Truck
   },
@@ -55,7 +55,7 @@ export const SERVICES: Service[] = [
     shortDescription: 'Stress-free coordination for your special day.',
     fullDescription: 'Let us handle the logistics. From venue sourcing to vendor management and day-of coordination, we ensure your event runs smoothly so you can enjoy the party.',
     priceStart: 1000,
-    image: 'https://picsum.photos/800/600?random=4',
+    image: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800&h=600&fit=crop&q=80',
     features: ['Vendor Management', 'Timeline Creation', 'On-site Coordination'],
     icon: PartyPopper
   },
@@ -66,7 +66,7 @@ export const SERVICES: Service[] = [
     shortDescription: 'Capture the fun with instant prints and digital props.',
     fullDescription: 'Modern open-air photo booths with custom backdrops and fun props. Guests get instant prints and can share directly to social media.',
     priceStart: 250,
-    image: 'https://picsum.photos/800/600?random=5',
+    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop&q=80',
     features: ['Unlimited Prints', 'Custom Props', 'Digital Gallery'],
     icon: Camera
   },
@@ -77,7 +77,7 @@ export const SERVICES: Service[] = [
     shortDescription: 'Music, magicians, and games for all ages.',
     fullDescription: 'Keep the energy high with our professional DJs or keep the kids entertained with balloon artists and face painters.',
     priceStart: 150,
-    image: 'https://picsum.photos/800/600?random=6',
+    image: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&h=600&fit=crop&q=80',
     features: ['Professional Equipment', 'Custom Playlists', 'Interactive Acts'],
     icon: Music
   },
@@ -90,7 +90,7 @@ export const SERVICES: Service[] = [
     shortDescription: 'Chafing dishes, platters, and elegant utensil sets.',
     fullDescription: 'High-quality serving ware for buffet-style events. We deliver clean equipment and handle the cleaning after pick-up.',
     priceStart: 50,
-    image: 'https://picsum.photos/800/600?random=7',
+    image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800&h=600&fit=crop&q=80',
     features: ['Delivery & Pickup', 'Cleaning Included', 'Elegant Designs'],
     icon: Utensils
   },
@@ -103,7 +103,7 @@ export const SERVICES: Service[] = [
     shortDescription: 'Beautifully designed digital or print-ready invites.',
     fullDescription: 'Set the tone for your event with custom graphic design. specific to your theme.',
     priceStart: 30,
-    image: 'https://picsum.photos/800/600?random=8',
+    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop&q=80',
     features: ['Custom Design', 'RSVP Tracking Support', 'Fast Turnaround'],
     icon: Palette
   },
@@ -114,7 +114,7 @@ export const SERVICES: Service[] = [
     shortDescription: 'Turn your raw footage into a cinematic highlight reel.',
     fullDescription: 'Send us your phone clips or professional footage, and we will edit them into a beautiful memory with music and effects.',
     priceStart: 100,
-    image: 'https://picsum.photos/800/600?random=9',
+    image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=600&fit=crop&q=80',
     features: ['Color Grading', 'Music Sync', 'Social Media Format'],
     icon: Video
   }

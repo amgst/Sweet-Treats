@@ -28,7 +28,7 @@ const About: React.FC = () => {
                     </p>
                 </div>
                 <div>
-                    <img src="https://picsum.photos/600/800?random=20" alt="Founder" className="rounded-2xl shadow-xl" />
+                    <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&h=800&fit=crop&q=80" alt="Founder" className="rounded-2xl shadow-xl" />
                 </div>
             </div>
 

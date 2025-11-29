@@ -14,7 +14,7 @@ const Home: React.FC = () => {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
             <img 
-                src="https://picsum.photos/1920/1080?random=10" 
+                src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1920&h=1080&fit=crop&q=80" 
                 alt="Dessert Table" 
                 className="w-full h-full object-cover"
             />
@@ -132,7 +132,7 @@ const Home: React.FC = () => {
                     </div>
                 </div>
                 <div className="relative">
-                    <img src="https://picsum.photos/600/600?random=11" alt="Happy Clients" className="rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500" />
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&h=600&fit=crop&q=80" alt="Happy Clients" className="rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500" />
                     <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg max-w-xs hidden md:block">
                         <p className="font-handwriting text-2xl text-pink-500 mb-2">"Sweet Perfection!"</p>
                         <p className="text-xs text-slate-500">Making memories one scoop at a time.</p>
