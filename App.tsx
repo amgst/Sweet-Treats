@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Routes, Route, ScrollRestoration } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Services from './pages/Services';
@@ -10,16 +10,16 @@ import Contact from './pages/Contact';
 
 // ScrollToTop component to handle scrolling on route change
 const ScrollToTop = () => {
-    // In React Router v6.4+ we might use ScrollRestoration but for simple HashRouter usage:
+    const { pathname } = useLocation();
     React.useEffect(() => {
       window.scrollTo(0, 0);
-    }, [window.location.hash]); // Listen to hash changes
+    }, [pathname]);
     return null;
 };
 
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
   return (
-    <Router>
+    <>
       <ScrollToTop />
       <Layout>
         <Routes>
@@ -31,6 +31,14 @@ const App: React.FC = () => {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </Layout>
+    </>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 };
