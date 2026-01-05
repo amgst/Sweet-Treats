@@ -1,11 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Star, CheckCircle, Heart, Calendar, DollarSign } from 'lucide-react';
-import { SERVICES, TESTIMONIALS } from '../constants';
+import { ArrowRight, Star, CheckCircle, Heart, Calendar, DollarSign, LucideIcon } from 'lucide-react';
+import { contentStore } from '../services/contentStore';
+import * as Icons from 'lucide-react';
 
 const Home: React.FC = () => {
+  const services = contentStore.getServices();
+  const testimonials = contentStore.getTestimonials();
+  const homeContent = contentStore.getHomeContent();
+  
   // Get first 3 services for "Featured" section
-  const featuredServices = SERVICES.slice(0, 3);
+  const featuredServices = services.slice(0, 3);
+  
+  // Icon mapping helper
+  const getIcon = (iconName: string): LucideIcon => {
+    const IconComponent = (Icons as any)[iconName] as LucideIcon;
+    return IconComponent || Heart;
+  };
 
   return (
     <div className="flex flex-col gap-16 pb-16">
@@ -14,7 +25,7 @@ const Home: React.FC = () => {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
             <img 
-                src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1920&h=1080&fit=crop&q=80" 
+                src={homeContent.hero.backgroundImage} 
                 alt="Dessert Table" 
                 className="w-full h-full object-cover"
             />
@@ -23,25 +34,24 @@ const Home: React.FC = () => {
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            Delicious Gelato, Desserts & <br />
-            <span className="text-pink-400 font-handwriting">Event Services</span>
+            {homeContent.hero.title} <br />
+            <span className="text-pink-400 font-handwriting">{homeContent.hero.subtitle}</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-200 mb-8 max-w-2xl mx-auto">
-            Book everything from premium gelato carts to full party planning in one place. 
-            We make your celebration sweet and stress-free.
+            {homeContent.hero.description}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               to="/services" 
               className="px-8 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-full font-semibold text-lg transition-all transform hover:scale-105 shadow-lg shadow-pink-500/30"
             >
-              Browse Services
+              {homeContent.hero.primaryButtonText}
             </Link>
             <Link 
               to="/contact" 
               className="px-8 py-3 bg-white hover:bg-slate-100 text-slate-900 rounded-full font-semibold text-lg transition-all"
             >
-              Get a Quote
+              {homeContent.hero.secondaryButtonText}
             </Link>
           </div>
         </div>
@@ -50,8 +60,8 @@ const Home: React.FC = () => {
       {/* Featured Services */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-slate-800 mb-4">Popular Services</h2>
-          <p className="text-slate-600">Our most requested additions to make your party pop.</p>
+          <h2 className="text-3xl font-bold text-slate-800 mb-4">{homeContent.featuredServicesTitle}</h2>
+          <p className="text-slate-600">{homeContent.featuredServicesDescription}</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -91,51 +101,29 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div>
-                    <h2 className="text-3xl font-bold text-slate-800 mb-6">Why Party with SweetTreats?</h2>
+                    <h2 className="text-3xl font-bold text-slate-800 mb-6">{homeContent.whyChooseUs.title}</h2>
                     <div className="space-y-6">
-                        <div className="flex items-start gap-4">
-                            <div className="p-3 bg-white rounded-full shadow-sm text-pink-500">
-                                <Heart className="h-6 w-6" />
+                        {homeContent.whyChooseUs.features.map((feature, idx) => {
+                          const Icon = getIcon(feature.icon);
+                          return (
+                            <div key={idx} className="flex items-start gap-4">
+                                <div className="p-3 bg-white rounded-full shadow-sm text-pink-500">
+                                    <Icon className="h-6 w-6" />
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-semibold text-slate-800">{feature.title}</h3>
+                                    <p className="text-slate-600 text-sm">{feature.description}</p>
+                                </div>
                             </div>
-                            <div>
-                                <h3 className="text-lg font-semibold text-slate-800">Quality Ingredients</h3>
-                                <p className="text-slate-600 text-sm">We use locally sourced dairy and real fruit for our gelatos, and premium ingredients for all catering.</p>
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-4">
-                            <div className="p-3 bg-white rounded-full shadow-sm text-pink-500">
-                                <CheckCircle className="h-6 w-6" />
-                            </div>
-                            <div>
-                                <h3 className="text-lg font-semibold text-slate-800">Dietary Friendly</h3>
-                                <p className="text-slate-600 text-sm">Vegan, gluten-free, halal, and nut-free options available for almost every service.</p>
-                            </div>
-                        </div>
-                         <div className="flex items-start gap-4">
-                            <div className="p-3 bg-white rounded-full shadow-sm text-pink-500">
-                                <DollarSign className="h-6 w-6" />
-                            </div>
-                            <div>
-                                <h3 className="text-lg font-semibold text-slate-800">Flexible Packages</h3>
-                                <p className="text-slate-600 text-sm">From intimate gatherings to corporate galas, we have pricing tiers to fit your budget.</p>
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-4">
-                            <div className="p-3 bg-white rounded-full shadow-sm text-pink-500">
-                                <Calendar className="h-6 w-6" />
-                            </div>
-                            <div>
-                                <h3 className="text-lg font-semibold text-slate-800">Easy Booking</h3>
-                                <p className="text-slate-600 text-sm">Browse, compare, and book online. Or use our AI assistant to plan your event instantly.</p>
-                            </div>
-                        </div>
+                          );
+                        })}
                     </div>
                 </div>
                 <div className="relative">
-                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&h=600&fit=crop&q=80" alt="Happy Clients" className="rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500" />
+                    <img src={homeContent.whyChooseUs.image} alt="Happy Clients" className="rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500" />
                     <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg max-w-xs hidden md:block">
-                        <p className="font-handwriting text-2xl text-pink-500 mb-2">"Sweet Perfection!"</p>
-                        <p className="text-xs text-slate-500">Making memories one scoop at a time.</p>
+                        <p className="font-handwriting text-2xl text-pink-500 mb-2">"{homeContent.whyChooseUs.quote}"</p>
+                        <p className="text-xs text-slate-500">{homeContent.whyChooseUs.quoteAuthor}</p>
                     </div>
                 </div>
            </div>
@@ -144,9 +132,9 @@ const Home: React.FC = () => {
 
       {/* Testimonials */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-center text-slate-800 mb-12">Sweet Words from Clients</h2>
+        <h2 className="text-3xl font-bold text-center text-slate-800 mb-12">{homeContent.testimonialsTitle}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((t) => (
+            {testimonials.map((t) => (
                 <div key={t.id} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center">
                     <div className="flex justify-center mb-4 text-yellow-400">
                         {[...Array(t.rating)].map((_, i) => <Star key={i} fill="currentColor" className="h-5 w-5" />)}

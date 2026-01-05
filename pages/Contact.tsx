@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import AIAssistant from '../components/AIAssistant';
+import { contentStore } from '../services/contentStore';
 
 const Contact: React.FC = () => {
+  const contactContent = contentStore.getContactContent();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -32,8 +34,8 @@ const Contact: React.FC = () => {
     <div className="bg-slate-50 min-h-screen py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-slate-800 mb-4">Let's Plan Your Party!</h1>
-            <p className="text-slate-600">Fill out the form below or use our AI assistant to get started.</p>
+            <h1 className="text-4xl font-bold text-slate-800 mb-4">{contactContent.title}</h1>
+            <p className="text-slate-600">{contactContent.description}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -44,15 +46,15 @@ const Contact: React.FC = () => {
                     <div className="space-y-4">
                         <div className="flex items-center gap-3 text-slate-600">
                             <Phone className="h-5 w-5 text-pink-500" />
-                            <span>(555) 123-4567</span>
+                            <span>{contactContent.contactInfo.phone}</span>
                         </div>
                         <div className="flex items-center gap-3 text-slate-600">
                             <Mail className="h-5 w-5 text-pink-500" />
-                            <span>hello@sweettreats.com</span>
+                            <span>{contactContent.contactInfo.email}</span>
                         </div>
                         <div className="flex items-center gap-3 text-slate-600">
                             <MapPin className="h-5 w-5 text-pink-500" />
-                            <span>123 Sugar Lane, Sweet City</span>
+                            <span>{contactContent.contactInfo.address}</span>
                         </div>
                     </div>
                 </div>

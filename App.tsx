@@ -7,6 +7,9 @@ import ServiceDetail from './pages/ServiceDetail';
 import Packages from './pages/Packages';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Admin from './pages/Admin';
+import AdminLogin from './pages/AdminLogin';
+import ProtectedRoute from './components/ProtectedRoute';
 
 // ScrollToTop component to handle scrolling on route change
 const ScrollToTop = () => {
@@ -21,16 +24,65 @@ const AppContent: React.FC = () => {
   return (
     <>
       <ScrollToTop />
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/services/:id" element={<ServiceDetail />} />
-          <Route path="/packages" element={<Packages />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </Layout>
+      <Routes>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <Home />
+            </Layout>
+          }
+        />
+        <Route
+          path="/services"
+          element={
+            <Layout>
+              <Services />
+            </Layout>
+          }
+        />
+        <Route
+          path="/services/:id"
+          element={
+            <Layout>
+              <ServiceDetail />
+            </Layout>
+          }
+        />
+        <Route
+          path="/packages"
+          element={
+            <Layout>
+              <Packages />
+            </Layout>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <Layout>
+              <About />
+            </Layout>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <Layout>
+              <Contact />
+            </Layout>
+          }
+        />
+      </Routes>
     </>
   );
 };

@@ -1,9 +1,11 @@
 import React from 'react';
-import { PACKAGES } from '../constants';
+import { contentStore } from '../services/contentStore';
 import { Check, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Packages: React.FC = () => {
+  const packages = contentStore.getPackages();
+  
   return (
     <div className="bg-slate-50 min-h-screen py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,7 +18,7 @@ const Packages: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-          {PACKAGES.map((pkg) => (
+          {packages.map((pkg) => (
             <div 
                 key={pkg.id} 
                 className={`relative bg-white rounded-3xl p-8 shadow-sm border ${pkg.recommended ? 'border-pink-500 shadow-xl shadow-pink-100 ring-4 ring-pink-50' : 'border-slate-200'}`}

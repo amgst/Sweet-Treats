@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, IceCream, Phone, Mail, Instagram, Facebook } from 'lucide-react';
+import { Menu, X, IceCream, Phone, Mail, Instagram, Facebook, Settings } from 'lucide-react';
+import { contentStore } from '../services/contentStore';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -32,6 +33,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Link to="/packages" className={isActive('/packages')}>Packages</Link>
               <Link to="/about" className={isActive('/about')}>About Us</Link>
               <Link to="/contact" className={isActive('/contact')}>Contact</Link>
+              {contentStore.isAuthenticated() && (
+                <Link to="/admin" className="flex items-center gap-1 text-slate-600 hover:text-pink-500">
+                  <Settings className="h-4 w-4" />
+                  Admin
+                </Link>
+              )}
               <Link 
                 to="/contact" 
                 className="bg-pink-500 hover:bg-pink-600 text-white px-5 py-2 rounded-full font-medium transition-colors shadow-lg shadow-pink-200"
@@ -81,7 +88,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <span className="font-handwriting text-xl text-white">SweetTreats</span>
               </div>
               <p className="text-slate-400 text-sm">
-                Bringing joy, sweetness, and seamless planning to your special events.
+                {contentStore.getFooterContent().description}
               </p>
             </div>
             
@@ -107,11 +114,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div>
               <h3 className="text-lg font-semibold mb-4 text-pink-400">Connect</h3>
               <div className="space-y-2 text-slate-300 text-sm">
-                <p className="flex items-center gap-2"><Phone className="h-4 w-4" /> (555) 123-4567</p>
-                <p className="flex items-center gap-2"><Mail className="h-4 w-4" /> hello@sweettreats.com</p>
+                <p className="flex items-center gap-2"><Phone className="h-4 w-4" /> {contentStore.getFooterContent().phone}</p>
+                <p className="flex items-center gap-2"><Mail className="h-4 w-4" /> {contentStore.getFooterContent().email}</p>
                 <div className="flex gap-4 mt-4">
-                  <a href="#" className="hover:text-pink-400"><Instagram className="h-5 w-5" /></a>
-                  <a href="#" className="hover:text-pink-400"><Facebook className="h-5 w-5" /></a>
+                  <a href={contentStore.getFooterContent().socialLinks.instagram} className="hover:text-pink-400"><Instagram className="h-5 w-5" /></a>
+                  <a href={contentStore.getFooterContent().socialLinks.facebook} className="hover:text-pink-400"><Facebook className="h-5 w-5" /></a>
                 </div>
               </div>
             </div>

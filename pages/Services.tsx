@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { SERVICES } from '../constants';
+import { contentStore } from '../services/contentStore';
 import { ServiceCategory } from '../types';
 import { Search, SlidersHorizontal, ArrowRight } from 'lucide-react';
 
 const Services: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const services = contentStore.getServices();
 
   const categories = ['All', ...Object.values(ServiceCategory)];
 
-  const filteredServices = SERVICES.filter(service => {
+  const filteredServices = services.filter(service => {
     const matchesCategory = selectedCategory === 'All' || service.category === selectedCategory;
     const matchesSearch = service.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           service.shortDescription.toLowerCase().includes(searchQuery.toLowerCase());
