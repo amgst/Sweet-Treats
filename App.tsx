@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Services from './pages/Services';
@@ -79,6 +79,20 @@ const AppContent: React.FC = () => {
           element={
             <Layout>
               <Contact />
+            </Layout>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <Layout>
+              <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                  <h1 className="text-4xl font-bold text-slate-800 mb-4">404 - Page Not Found</h1>
+                  <p className="text-slate-600 mb-6">The page you're looking for doesn't exist.</p>
+                  <Link to="/" className="text-pink-500 hover:underline">Go back home</Link>
+                </div>
+              </div>
             </Layout>
           }
         />
