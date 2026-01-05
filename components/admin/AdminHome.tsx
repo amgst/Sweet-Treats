@@ -8,7 +8,7 @@ const AdminHome: React.FC = () => {
 
   const handleSave = () => {
     contentStore.setHomeContent(content);
-    alert('Home page content saved!');
+    window.location.reload();
   };
 
   const updateHero = (field: keyof HomeContent['hero'], value: string) => {

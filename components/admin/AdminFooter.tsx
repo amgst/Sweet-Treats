@@ -8,7 +8,7 @@ const AdminFooter: React.FC = () => {
 
   const handleSave = () => {
     contentStore.setFooterContent(content);
-    alert('Footer content saved!');
+    window.location.reload();
   };
 
   const updateSocialLinks = (field: keyof FooterContent['socialLinks'], value: string) => {

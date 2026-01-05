@@ -27,6 +27,7 @@ const AdminServices: React.FC = () => {
     contentStore.setServices(updated);
     setEditingId(null);
     setEditingService({});
+    window.location.reload();
   };
 
   const handleDelete = (id: string) => {
@@ -34,6 +35,7 @@ const AdminServices: React.FC = () => {
       const updated = services.filter(s => s.id !== id);
       setServices(updated);
       contentStore.setServices(updated);
+      window.location.reload();
     }
   };
 

@@ -27,6 +27,7 @@ const AdminTestimonials: React.FC = () => {
     contentStore.setTestimonials(updated);
     setEditingId(null);
     setEditingTestimonial({});
+    window.location.reload();
   };
 
   const handleDelete = (id: number) => {
@@ -34,6 +35,7 @@ const AdminTestimonials: React.FC = () => {
       const updated = testimonials.filter(t => t.id !== id);
       setTestimonials(updated);
       contentStore.setTestimonials(updated);
+      window.location.reload();
     }
   };
 

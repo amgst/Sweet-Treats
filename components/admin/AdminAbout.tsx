@@ -8,7 +8,7 @@ const AdminAbout: React.FC = () => {
 
   const handleSave = () => {
     contentStore.setAboutContent(content);
-    alert('About page content saved!');
+    window.location.reload();
   };
 
   const updateStory = (field: keyof AboutContent['story'], value: string | string[]) => {

@@ -27,6 +27,7 @@ const AdminPackages: React.FC = () => {
     contentStore.setPackages(updated);
     setEditingId(null);
     setEditingPackage({});
+    window.location.reload();
   };
 
   const handleDelete = (id: string) => {
@@ -34,6 +35,7 @@ const AdminPackages: React.FC = () => {
       const updated = packages.filter(p => p.id !== id);
       setPackages(updated);
       contentStore.setPackages(updated);
+      window.location.reload();
     }
   };
 

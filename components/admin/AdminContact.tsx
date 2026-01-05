@@ -8,7 +8,7 @@ const AdminContact: React.FC = () => {
 
   const handleSave = () => {
     contentStore.setContactContent(content);
-    alert('Contact page content saved!');
+    window.location.reload();
   };
 
   const updateContactInfo = (field: keyof ContactContent['contactInfo'], value: string) => {
