@@ -1,12 +1,12 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { contentStore } from '../services/contentStore';
+import { useContent } from '../contexts/ContentContext';
 import { Check, ArrowLeft, Calendar, Info } from 'lucide-react';
 
 const ServiceDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const services = contentStore.getServices();
-  const service = services.find(s => s.id === id);
+  const { content } = useContent();
+  const service = content.services.find(s => s.id === id);
 
   if (!service) {
     return (

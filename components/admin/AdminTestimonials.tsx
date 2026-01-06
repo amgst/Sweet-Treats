@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { contentStore } from '../../services/contentStore';
 import { Testimonial } from '../../types';
 import { Plus, Trash2, Save, X, Star } from 'lucide-react';
+import { useContent } from '../../contexts/ContentContext';
 
 const AdminTestimonials: React.FC = () => {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const { content, updateTestimonials } = useContent();
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(content.testimonials);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingTestimonial, setEditingTestimonial] = useState<Partial<Testimonial>>({});
 
   useEffect(() => {
-    setTestimonials(contentStore.getTestimonials());
-  }, []);
+    setTestimonials(content.testimonials);
+  }, [content.testimonials]);
 
   const handleEdit = (testimonial: Testimonial) => {
     setEditingId(testimonial.id);
@@ -25,9 +27,16 @@ const AdminTestimonials: React.FC = () => {
     );
     setTestimonials(updated);
     contentStore.setTestimonials(updated);
+    updateTestimonials();
     setEditingId(null);
     setEditingTestimonial({});
-    window.location.reload();
+    
+    // Show success notification
+    const notification = document.createElement('div');
+    notification.textContent = '✓ Saved! Changes are live.';
+    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 2000);
   };
 
   const handleDelete = (id: number) => {
@@ -35,7 +44,7 @@ const AdminTestimonials: React.FC = () => {
       const updated = testimonials.filter(t => t.id !== id);
       setTestimonials(updated);
       contentStore.setTestimonials(updated);
-      window.location.reload();
+      updateTestimonials();
     }
   };
 
@@ -50,6 +59,7 @@ const AdminTestimonials: React.FC = () => {
     const updated = [...testimonials, newTestimonial];
     setTestimonials(updated);
     contentStore.setTestimonials(updated);
+    updateTestimonials();
     setEditingId(newTestimonial.id);
     setEditingTestimonial(newTestimonial);
   };

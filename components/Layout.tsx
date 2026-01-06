@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, IceCream, Phone, Mail, Instagram, Facebook, Settings } from 'lucide-react';
-import { contentStore } from '../services/contentStore';
+import { useContent } from '../contexts/ContentContext';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const { content } = useContent();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -33,12 +34,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Link to="/packages" className={isActive('/packages')}>Packages</Link>
               <Link to="/about" className={isActive('/about')}>About Us</Link>
               <Link to="/contact" className={isActive('/contact')}>Contact</Link>
-              {contentStore.isAuthenticated() && (
-                <Link to="/admin" className="flex items-center gap-1 text-slate-600 hover:text-pink-500">
-                  <Settings className="h-4 w-4" />
-                  Admin
-                </Link>
-              )}
+              {(() => {
+                // Check authentication from localStorage
+                const isAuth = localStorage.getItem('sweettreats_admin_auth') === 'authenticated';
+                return isAuth ? (
+                  <Link to="/admin" className="flex items-center gap-1 text-slate-600 hover:text-pink-500">
+                    <Settings className="h-4 w-4" />
+                    Admin
+                  </Link>
+                ) : null;
+              })()}
               <Link 
                 to="/contact" 
                 className="bg-pink-500 hover:bg-pink-600 text-white px-5 py-2 rounded-full font-medium transition-colors shadow-lg shadow-pink-200"
@@ -88,7 +93,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <span className="font-handwriting text-xl text-white">SweetTreats</span>
               </div>
               <p className="text-slate-400 text-sm">
-                {contentStore.getFooterContent().description}
+                {content.footer.description}
               </p>
             </div>
             
@@ -114,11 +119,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div>
               <h3 className="text-lg font-semibold mb-4 text-pink-400">Connect</h3>
               <div className="space-y-2 text-slate-300 text-sm">
-                <p className="flex items-center gap-2"><Phone className="h-4 w-4" /> {contentStore.getFooterContent().phone}</p>
-                <p className="flex items-center gap-2"><Mail className="h-4 w-4" /> {contentStore.getFooterContent().email}</p>
+                <p className="flex items-center gap-2"><Phone className="h-4 w-4" /> {content.footer.phone}</p>
+                <p className="flex items-center gap-2"><Mail className="h-4 w-4" /> {content.footer.email}</p>
                 <div className="flex gap-4 mt-4">
-                  <a href={contentStore.getFooterContent().socialLinks.instagram} className="hover:text-pink-400"><Instagram className="h-5 w-5" /></a>
-                  <a href={contentStore.getFooterContent().socialLinks.facebook} className="hover:text-pink-400"><Facebook className="h-5 w-5" /></a>
+                  <a href={content.footer.socialLinks.instagram} className="hover:text-pink-400"><Instagram className="h-5 w-5" /></a>
+                  <a href={content.footer.socialLinks.facebook} className="hover:text-pink-400"><Facebook className="h-5 w-5" /></a>
                 </div>
               </div>
             </div>

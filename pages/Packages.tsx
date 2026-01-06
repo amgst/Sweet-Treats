@@ -1,10 +1,11 @@
 import React from 'react';
-import { contentStore } from '../services/contentStore';
+import { useContent } from '../contexts/ContentContext';
 import { Check, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Packages: React.FC = () => {
-  const packages = contentStore.getPackages();
+  const { content } = useContent();
+  const packages = content.packages;
   
   return (
     <div className="bg-slate-50 min-h-screen py-16">

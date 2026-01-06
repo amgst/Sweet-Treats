@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { contentStore } from '../../services/contentStore';
 import { Service, ServiceCategory } from '../../types';
 import { Plus, Trash2, Save, X } from 'lucide-react';
+import { useContent } from '../../contexts/ContentContext';
 
 const AdminServices: React.FC = () => {
-  const [services, setServices] = useState<Service[]>([]);
+  const { content, updateServices } = useContent();
+  const [services, setServices] = useState<Service[]>(content.services);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingService, setEditingService] = useState<Partial<Service>>({});
 
   useEffect(() => {
-    setServices(contentStore.getServices());
-  }, []);
+    setServices(content.services);
+  }, [content.services]);
 
   const handleEdit = (service: Service) => {
     setEditingId(service.id);
@@ -25,9 +27,16 @@ const AdminServices: React.FC = () => {
     );
     setServices(updated);
     contentStore.setServices(updated);
+    updateServices();
     setEditingId(null);
     setEditingService({});
-    window.location.reload();
+    
+    // Show success notification
+    const notification = document.createElement('div');
+    notification.textContent = '✓ Saved! Changes are live.';
+    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 2000);
   };
 
   const handleDelete = (id: string) => {
@@ -35,7 +44,7 @@ const AdminServices: React.FC = () => {
       const updated = services.filter(s => s.id !== id);
       setServices(updated);
       contentStore.setServices(updated);
-      window.location.reload();
+      updateServices();
     }
   };
 
@@ -53,6 +62,7 @@ const AdminServices: React.FC = () => {
     const updated = [...services, newService];
     setServices(updated);
     contentStore.setServices(updated);
+    updateServices();
     setEditingId(newService.id);
     setEditingService(newService);
   };

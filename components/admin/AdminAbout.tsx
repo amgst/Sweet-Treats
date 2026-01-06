@@ -2,13 +2,22 @@ import React, { useState } from 'react';
 import { contentStore } from '../../services/contentStore';
 import { AboutContent } from '../../services/contentStore';
 import { Save } from 'lucide-react';
+import { useContent } from '../../contexts/ContentContext';
 
 const AdminAbout: React.FC = () => {
-  const [content, setContent] = useState<AboutContent>(contentStore.getAboutContent());
+  const { content: siteContent, updateAbout } = useContent();
+  const [content, setContent] = useState<AboutContent>(siteContent.about);
 
   const handleSave = () => {
     contentStore.setAboutContent(content);
-    window.location.reload();
+    updateAbout();
+    
+    // Show success notification
+    const notification = document.createElement('div');
+    notification.textContent = '✓ Saved! Changes are live.';
+    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 2000);
   };
 
   const updateStory = (field: keyof AboutContent['story'], value: string | string[]) => {

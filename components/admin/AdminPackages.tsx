@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { contentStore } from '../../services/contentStore';
 import { Package } from '../../types';
 import { Plus, Trash2, Save, X } from 'lucide-react';
+import { useContent } from '../../contexts/ContentContext';
 
 const AdminPackages: React.FC = () => {
-  const [packages, setPackages] = useState<Package[]>([]);
+  const { content, updatePackages } = useContent();
+  const [packages, setPackages] = useState<Package[]>(content.packages);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingPackage, setEditingPackage] = useState<Partial<Package>>({});
 
   useEffect(() => {
-    setPackages(contentStore.getPackages());
-  }, []);
+    setPackages(content.packages);
+  }, [content.packages]);
 
   const handleEdit = (pkg: Package) => {
     setEditingId(pkg.id);
@@ -25,9 +27,16 @@ const AdminPackages: React.FC = () => {
     );
     setPackages(updated);
     contentStore.setPackages(updated);
+    updatePackages();
     setEditingId(null);
     setEditingPackage({});
-    window.location.reload();
+    
+    // Show success notification
+    const notification = document.createElement('div');
+    notification.textContent = '✓ Saved! Changes are live.';
+    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 2000);
   };
 
   const handleDelete = (id: string) => {
@@ -35,7 +44,7 @@ const AdminPackages: React.FC = () => {
       const updated = packages.filter(p => p.id !== id);
       setPackages(updated);
       contentStore.setPackages(updated);
-      window.location.reload();
+      updatePackages();
     }
   };
 
@@ -50,6 +59,7 @@ const AdminPackages: React.FC = () => {
     const updated = [...packages, newPackage];
     setPackages(updated);
     contentStore.setPackages(updated);
+    updatePackages();
     setEditingId(newPackage.id);
     setEditingPackage(newPackage);
   };

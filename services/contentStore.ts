@@ -299,3 +299,4 @@ class ContentStore {
 }
 
 export const contentStore = new ContentStore();
+

@@ -10,6 +10,7 @@ import Contact from './pages/Contact';
 import Admin from './pages/Admin';
 import AdminLogin from './pages/AdminLogin';
 import ProtectedRoute from './components/ProtectedRoute';
+import { ContentProvider } from './contexts/ContentContext';
 
 // ScrollToTop component to handle scrolling on route change
 const ScrollToTop = () => {
@@ -103,9 +104,11 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <ContentProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </ContentProvider>
   );
 };
 

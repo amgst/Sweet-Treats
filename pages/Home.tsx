@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star, CheckCircle, Heart, Calendar, DollarSign, LucideIcon } from 'lucide-react';
-import { contentStore } from '../services/contentStore';
+import { useContent } from '../contexts/ContentContext';
 import * as Icons from 'lucide-react';
 
 const Home: React.FC = () => {
-  const services = contentStore.getServices();
-  const testimonials = contentStore.getTestimonials();
-  const homeContent = contentStore.getHomeContent();
+  const { content } = useContent();
+  const services = content.services;
+  const testimonials = content.testimonials;
+  const homeContent = content.home;
   
   // Get first 3 services for "Featured" section
   const featuredServices = services.slice(0, 3);

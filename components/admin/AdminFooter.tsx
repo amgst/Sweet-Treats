@@ -2,13 +2,22 @@ import React, { useState } from 'react';
 import { contentStore } from '../../services/contentStore';
 import { FooterContent } from '../../services/contentStore';
 import { Save } from 'lucide-react';
+import { useContent } from '../../contexts/ContentContext';
 
 const AdminFooter: React.FC = () => {
-  const [content, setContent] = useState<FooterContent>(contentStore.getFooterContent());
+  const { content: siteContent, updateFooter } = useContent();
+  const [content, setContent] = useState<FooterContent>(siteContent.footer);
 
   const handleSave = () => {
     contentStore.setFooterContent(content);
-    window.location.reload();
+    updateFooter();
+    
+    // Show success notification
+    const notification = document.createElement('div');
+    notification.textContent = '✓ Saved! Changes are live.';
+    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 2000);
   };
 
   const updateSocialLinks = (field: keyof FooterContent['socialLinks'], value: string) => {

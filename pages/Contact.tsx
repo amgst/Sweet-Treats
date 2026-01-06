@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import AIAssistant from '../components/AIAssistant';
-import { contentStore } from '../services/contentStore';
+import { useContent } from '../contexts/ContentContext';
 
 const Contact: React.FC = () => {
-  const contactContent = contentStore.getContactContent();
+  const { content } = useContent();
+  const contactContent = content.contact;
   const [formData, setFormData] = useState({
     name: '',
     email: '',

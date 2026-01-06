@@ -1,10 +1,11 @@
 import React from 'react';
 import { Heart, Smile, Sun, LucideIcon } from 'lucide-react';
-import { contentStore } from '../services/contentStore';
+import { useContent } from '../contexts/ContentContext';
 import * as Icons from 'lucide-react';
 
 const About: React.FC = () => {
-  const aboutContent = contentStore.getAboutContent();
+  const { content } = useContent();
+  const aboutContent = content.about;
   
   // Icon mapping helper
   const getIcon = (iconName: string): LucideIcon => {

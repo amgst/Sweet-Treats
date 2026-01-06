@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { contentStore } from '../services/contentStore';
+import { useContent } from '../contexts/ContentContext';
 import { ServiceCategory } from '../types';
 import { Search, SlidersHorizontal, ArrowRight } from 'lucide-react';
 
 const Services: React.FC = () => {
+  const { content } = useContent();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const services = contentStore.getServices();
+  const services = content.services;
 
   const categories = ['All', ...Object.values(ServiceCategory)];
 

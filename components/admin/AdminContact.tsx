@@ -2,13 +2,22 @@ import React, { useState } from 'react';
 import { contentStore } from '../../services/contentStore';
 import { ContactContent } from '../../services/contentStore';
 import { Save } from 'lucide-react';
+import { useContent } from '../../contexts/ContentContext';
 
 const AdminContact: React.FC = () => {
-  const [content, setContent] = useState<ContactContent>(contentStore.getContactContent());
+  const { content: siteContent, updateContact } = useContent();
+  const [content, setContent] = useState<ContactContent>(siteContent.contact);
 
   const handleSave = () => {
     contentStore.setContactContent(content);
-    window.location.reload();
+    updateContact();
+    
+    // Show success notification
+    const notification = document.createElement('div');
+    notification.textContent = '✓ Saved! Changes are live.';
+    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 2000);
   };
 
   const updateContactInfo = (field: keyof ContactContent['contactInfo'], value: string) => {
